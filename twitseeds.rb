@@ -20,8 +20,8 @@ def getFeed
 
 	page =  begin 
 			instance.get 'https://m.twitter.com/session/new'
-		rescue
-			yield
+		rescue => e
+			e
 		end
 
 	return page.form_with(:action => 'https://mobile.twitter.com/session') do |session|
