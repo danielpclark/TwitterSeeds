@@ -1,5 +1,7 @@
 # Twitter Seeds
 # Little goodness from your feed
+# The MIT License
+
 
 require 'rubygems'
 require 'mechanize'
@@ -8,7 +10,7 @@ require 'mightystring'
 
 puts "#{HighLine::GREEN}Twitter Seeds . . .#{HighLine::CLEAR}"
 puts "#{HighLine::RED}Be advised. This script logs in each update.#{HighLine::CLEAR}"
-puts "#{HighLine::YELLOW}Twitter is okay with that.  Are you?#{HighLine::CLEAR}"
+puts "#{HighLine::YELLOW}Twitter api is okay with that.  Are you?#{HighLine::CLEAR}"
 
 USERNAME = ask("Twitter Username: ")
 PASSWORD = ask("Twitter Password: "){ |q| q.echo = '*' }
