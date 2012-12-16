@@ -13,7 +13,7 @@ puts "#{HighLine::RED}Be advised. This script logs in each update.#{HighLine::CL
 puts "#{HighLine::YELLOW}Twitter api is okay with that.  Are you?#{HighLine::CLEAR}"
 
 USERNAME = ask("Twitter Username: ")
-PASSWORD = ask("Twitter Password: "){ |q| q.echo = '*' }
+PASSWORD = ask("Twitter Password: "){ |q| q.echo = '' }
 
 def getFeed
 	instance = Mechanize.new
@@ -55,22 +55,22 @@ def markHash(instr)
 	end.join(' ')
 end
 
-def diff(x,y)
-	o = x
-	x = x.reject{|a| if y.include?(a); a end }
-	y = y.reject{|a| if o.include?(a); a end }
-	x | y
-end
-
-currentFeed, oldFeed = [], []
+currentFeed, history = [], []
 
 while true
 	Nokogiri::HTML(getFeed.body, "UTF-8").css('table.tweet').each do |tweet|
 		currentFeed << " #{ HighLine::BLUE + tweet.css("span.username").text.strip() + HighLine::CLEAR }  #{ markHash( tweet.css('div.tweet-text').inner_html ) }"
 	end
 	currentFeed = currentFeed.reverse
-	puts diff(currentFeed, oldFeed)
-	oldFeed = currentFeed
+	currentFeed.each do |item|
+		if not history.include?(item)
+			history << item
+			if history.length > 30
+				history = history[1..-1]
+			end
+			puts item
+		end
+	end
 	currentFeed = []
 	sleep 180
 end
