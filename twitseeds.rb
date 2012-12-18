@@ -65,7 +65,7 @@ while true
 	currentFeed.each do |item|
 		if not history.include?(item)
 			history << item
-			if history.length > 30
+			if history.length > 30 and history.length > currentFeed.length
 				history = history[1..-1]
 			end
 			puts item
