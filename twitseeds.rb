@@ -1,7 +1,7 @@
+#!/usr/bin/ruby
 # Twitter Seeds
 # Little goodness from your feed
 # The MIT License
-
 
 require 'rubygems'
 require 'mechanize'
@@ -45,9 +45,9 @@ end
 
 def markHash(instr)
 	MightyString::HTML.strip_html(instr).split.map do |x|
-		if !!x[0]['#']
+		if !!x[0..1]['#']
 			HighLine::RED + x + HighLine::CLEAR
-		elsif !!x[0]['@']
+		elsif !!x[0..1]['@']
 			HighLine::YELLOW + x + HighLine::CLEAR
 		else
 			x
